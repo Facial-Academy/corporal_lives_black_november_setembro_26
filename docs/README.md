@@ -51,6 +51,9 @@ original.
 | Build command | *(vazio)* |
 | Build output directory | **`site`** |
 
+Projeto: `corporal-lives-black-november-setembro-26` · no ar em
+<https://corporal-lives-black-november-setembro-26.pages.dev>
+
 O output **precisa** ser `site`, não a raiz — senão o README do repositório, o
 `.gitignore` e o `docs/` também vão para o ar.
 
@@ -58,6 +61,13 @@ O output **precisa** ser `site`, não a raiz — senão o README do repositório
 morava em `site/README.md` e teria ficado acessível em `seudominio/README.md`,
 junto com o `index.html.bak`, que ainda carrega o snippet antigo do WhatsApp e
 a URL da Clint.
+
+**Pegadinha:** salvar a configuração de build **não** republica o site. Depois
+de mudar o output directory é preciso ir em *Deployments* e usar *Retry
+deployment* — ou fazer um push na `main`, que dispara build automático. Com o
+output apontando para a raiz, a home dá 404 (não existe `index.html` lá) e o
+`docs/` fica público; se `/docs/README.md` responder 200, o deploy no ar ainda
+é o antigo.
 
 Publicado, `site/obrigado/index.html` responde em `/obrigado` e `/obrigado/`.
 São 95 arquivos e 9 MB, com o maior em 3,4 MB — folgado nos limites do Pages

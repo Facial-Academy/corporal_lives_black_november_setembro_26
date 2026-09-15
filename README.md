@@ -31,9 +31,13 @@ módulos ES.
 
 ## Publicar
 
+No ar em <https://corporal-lives-black-november-setembro-26.pages.dev>.
+
 Cloudflare Pages, sem build: preset `None`, build command vazio e **build
 output directory `site`**. Não aponte para a raiz — o `docs/` e o README do
 repositório iriam junto para o ar.
+
+Deploy automático a cada push na `main`.
 
 O redirect do formulário é relativo (`/obrigado/`), então funciona em qualquer
 domínio: `pages.dev`, domínio final ou localhost.
