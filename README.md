@@ -27,7 +27,16 @@ módulos ES.
 | `site/index.html` | página de captação (cópia Framer) |
 | `site/obrigado/index.html` | página de obrigado, uma dobra |
 | `site/assets/framer/` | 16 módulos `.mjs`, 50 fontes e as imagens |
-| `site/README.md` | **a documentação de verdade** |
+| `docs/README.md` | **a documentação de verdade** |
+
+## Publicar
+
+Cloudflare Pages, sem build: preset `None`, build command vazio e **build
+output directory `site`**. Não aponte para a raiz — o `docs/` e o README do
+repositório iriam junto para o ar.
+
+O redirect do formulário é relativo (`/obrigado/`), então funciona em qualquer
+domínio: `pages.dev`, domínio final ou localhost.
 
 ## O funil
 
@@ -38,9 +47,9 @@ formulário  →  Leadhero  →  /obrigado  →  grupo de WhatsApp (SendFlow)
 ## Documentação
 
 Tudo o que foi alterado sobre a cópia original está em
-**[site/README.md](site/README.md)**: o que mudou, por quê, e as armadilhas
+**[docs/README.md](docs/README.md)**: o que mudou, por quê, e as armadilhas
 que apareceram no caminho — entre elas o cache dos `.mjs` que faz o navegador
-servir a versão antiga, a URL relativa que quebrava o redirect do formulário,
+servir a versão antiga, o componente que recusava caminho relativo no redirect,
 e a cor de foco compartilhada entre o botão e os inputs.
 
 Vale ler antes de mexer em qualquer coisa dentro de `site/assets/`.

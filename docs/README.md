@@ -43,6 +43,26 @@ Ao rolar, o runtime do Framer monta uma URL de imagem otimizada e gera um
 carregada pelo `srcset`), e o mesmo tipo de erro de console aparece no site
 original.
 
+## Publicar (Cloudflare Pages)
+
+| Campo | Valor |
+|---|---|
+| Framework preset | `None` |
+| Build command | *(vazio)* |
+| Build output directory | **`site`** |
+
+O output **precisa** ser `site`, não a raiz — senão o README do repositório, o
+`.gitignore` e o `docs/` também vão para o ar.
+
+`docs/` fica fora da pasta publicada justamente por isso: antes a documentação
+morava em `site/README.md` e teria ficado acessível em `seudominio/README.md`,
+junto com o `index.html.bak`, que ainda carrega o snippet antigo do WhatsApp e
+a URL da Clint.
+
+Publicado, `site/obrigado/index.html` responde em `/obrigado` e `/obrigado/`.
+São 95 arquivos e 9 MB, com o maior em 3,4 MB — folgado nos limites do Pages
+(25 MiB por arquivo).
+
 ## Botão do formulário (página de captura)
 
 Texto `Continuar` → **`CADASTRAR AGORA`**, cor roxa → verde WhatsApp, mais o
@@ -111,7 +131,7 @@ componente do Framer, e sim um `<script>` custom que:
 Com isso saíram do projeto as 6 ocorrências de `wa-btn`, as 2 de
 `botao_whatsapp` e as duas URLs da Facial Academy.
 
-Para trazer de volta, copie **só o bloco** do `index.html.bak` (entre
+Para trazer de volta, copie **só o bloco** do `docs/index.html.bak` (entre
 `<!-- Snippet: DMegGI9Pe -->` e `<!-- SnippetEnd: DMegGI9Pe -->`) ou pegue do
 site original. **Não restaure o `.bak` inteiro**: ele é uma foto anterior às
 mudanças do botão do formulário — nele o botão ainda é roxo e diz
@@ -249,15 +269,19 @@ O formulário da captura passou a apontar para esta página. Alterado em:
     assets/framer/sites/45N5zIUFvvG4RXjjHh9BaL/ZQn_pCuEGXCHcar7NVfMBk2G1IrvVKi_hBNVDcJYMck.DvmSjc0R.mjs
 
     redirectUrl:`https://sndflw.com/i/blackfridaycorporalclass`   (antes)
-    redirectUrl:`https://corporalacademy.com.br/obrigado/`        (agora)
+    redirectUrl:`/obrigado/`                                      (agora)
 
 **Atenção:** rodar o script de espelhamento de novo sobrescreve essa
 alteração (e todas as outras feitas nos `.mjs`).
 
-Precisa ser URL absoluta: o componente prefixa `https://` em valores que não
-começam com `http`, então `/obrigado/` viraria `https://obrigado/` — host
-inválido, funil quebrado. Como está absoluta e apontando para o domínio de
-produção, o teste local do redirect sai do localhost.
+O componente original **não aceitava caminho relativo**: ele prefixa `https://`
+em valores que não começam com `http`, então `/obrigado/` virava
+`https://obrigado/` — host inválido, funil quebrado. Por isso o
+`CorporalAcademyForm.BB9HNbDW.mjs` ganhou uma linha: caminho iniciado por `/`
+passa a resolver contra `location.origin`.
+
+Com isso o redirect funciona em qualquer domínio — `pages.dev`, domínio final
+e localhost — sem precisar trocar nada ao publicar.
 
 No site real a mudança tem que ser feita no Framer, na propriedade
 **Comportamento → redirectUrl** do componente do formulário.
