@@ -1,0 +1,4 @@
+# Config local do preview (contém caminho absoluto desta máquina)
+.claude/
+
+.DS_Store
