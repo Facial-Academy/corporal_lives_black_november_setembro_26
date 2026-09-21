@@ -272,6 +272,30 @@ o par de cores oficial do WhatsApp e o que a pessoa reconhece na hora; se
 preferir passar no AA, dá para escurecer o gradiente (algo como `#1EA85A` →
 `#0E7263`) mantendo a leitura de "verde WhatsApp".
 
+### Segunda versão: `/aguarde-black-vitalicia`
+
+`site/aguarde-black-vitalicia/index.html` — mesma identidade, sem CTA e **sem
+nenhum link**. Todo o conteúdo é:
+
+> **Obrigado.**
+> Cadastro recebido com sucesso
+> Em breve divulgaremos todos os detalhes!
+
+Para quem não deve ser mandado ao grupo. Reaproveita as fontes Silka e as
+imagens em base64 da outra página, então também é autocontida — só o GTM é
+externo, com o mesmo container.
+
+Sem rolagem em desktop, 375×812 e 360×640.
+
+Cada frase do texto de apoio fica em um `<span>` com `display:block`. Não é
+enfeite: com as duas frases separadas por `<br>`, o `text-wrap: balance` não
+atua (o navegador trata o bloco inteiro) e no celular sobrava "detalhes!"
+sozinho na última linha. Em blocos separados, o balanceamento funciona em cada
+frase.
+
+O `<title>` continua "Obrigado — …", por decisão — não acompanha o nome do
+caminho.
+
 ### Redirect do formulário
 
 O formulário da captura passou a apontar para esta página. Alterado em:

@@ -26,6 +26,7 @@ módulos ES.
 |---|---|
 | `site/index.html` | página de captação (cópia Framer) |
 | `site/obrigado/index.html` | página de obrigado, uma dobra |
+| `site/aguarde-black-vitalicia/index.html` | 2ª versão: só a confirmação |
 | `site/assets/framer/` | 16 módulos `.mjs`, 50 fontes e as imagens |
 | `docs/README.md` | **a documentação de verdade** |
 
