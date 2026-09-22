@@ -41,7 +41,7 @@ repositório iriam junto para o ar.
 Deploy automático a cada push na `main`.
 
 O redirect do formulário é relativo (`/obrigado/`), então funciona em qualquer
-domínio: `pages.dev`, domínio final ou localhost.
+domínio: `pages.dev`, domínio final ou localhost. A **triagem** do cadastro, não: fora do domínio final e do `pages.dev`, e-mail novo cai em aprovação (ver `docs/README.md`, "Formulário decide a saída pelo LeadHero").
 
 ## O funil
 

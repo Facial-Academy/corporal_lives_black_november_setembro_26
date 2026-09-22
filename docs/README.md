@@ -320,6 +320,33 @@ e localhost — sem precisar trocar nada ao publicar.
 No site real a mudança tem que ser feita no Framer, na propriedade
 **Comportamento → redirectUrl** do componente do formulário.
 
+### Formulário decide a saída pelo LeadHero (triagem, 22/09/2026)
+
+O webhook do formulário passou de `lead-capture-api` para `lead-capture-rapido` (mesma
+integração `5cc44ae2-…`). O rápido decide na hora a saída do cadastro — anti-spam do SendFlow,
+quem já recebeu o link, página oficial ou pendente de aprovação — e devolve
+`{ pagina, redirect }`. Regra completa: `docs/triagem-captura-black.md` no repo do LeadHero.
+
+Alterado em dois arquivos:
+
+- `ZQn_pCuEGX….mjs` — a URL do webhook (`lead-capture-api` → `lead-capture-rapido`).
+- `CorporalAcademyForm.BB9HNbDW.mjs` — o componente mandava TODO webhook em `mode: "no-cors"`,
+  que deixa a resposta opaca: a página nunca veria o `redirect`. Agora, webhook cuja URL contém
+  `/lead-capture-rapido/` vai em CORS simples (`Content-Type: text/plain`, sem preflight), a
+  página espera até 4 s e, se vier `redirect` `https`, navega pra ele (é a página de aguarde de
+  quem está no anti-spam). Timeout, erro ou `redirect` nulo seguem o caminho de sempre
+  (`/obrigado/`). Os outros webhooks continuam `no-cors`.
+
+**Atenção:** rodar o espelhamento do Framer de novo desfaz as duas alterações, e a página volta
+a postar no `lead-capture-api` — o lead entra, mas a triagem deixa de rodar sem nenhum aviso.
+
+**Origem oficial:** a triagem só trata como "página oficial" o host do `Origin` do POST que
+estiver em `regra_triagem.origens_oficiais` da integração: hoje o domínio final e
+`corporal-lives-black-november-setembro-26.pages.dev`. Teste com e-mail NOVO em preview de
+branch ou localhost cai em **aprovação** (não cadastra, e o aprovador recebe um WhatsApp).
+Pra testar sem efeito colateral, use o domínio final com um e-mail que já é lead, ou um
+número do anti-spam.
+
 ### Dados pessoais na URL — resolvido
 
 O formulário vinha com `appendDataToRedirect: true`, herdado de quando o
